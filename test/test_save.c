@@ -1,8 +1,8 @@
-#include "contact.h"
+#include "../contact.h"
 #include <stdio.h>
 
-void saveContact() {
-  FILE *fp = fopen("contacts.txt", "w");
+void test_save() {
+  FILE *fp = fopen("test.txt", "w");
   if (fp == NULL) {
     printf("Error opening file.\n");
     return;

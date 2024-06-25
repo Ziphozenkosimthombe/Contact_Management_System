@@ -1,6 +1,6 @@
 #include "contact.h"
 #include <stdio.h>
-
+#include <string.h>
 void clearInputBuffer() {
   int c;
   while ((c = getchar()) != '\n' && c != EOF)
@@ -8,6 +8,7 @@ void clearInputBuffer() {
 }
 
 void displayMenu() {
+
   int choice;
   char input[10]; // Buffer for user input
 
@@ -26,7 +27,23 @@ void displayMenu() {
 
     switch (choice) {
     case 1:
-      addContact();
+      char name[NAME_SIZE];
+      char phone[PHONE_SIZE];
+      char email[EMAIL_SIZE];
+
+      printf("Enter name: ");
+      fgets(name, sizeof(name), stdin);
+      name[strcspn(name, "\n")] = '\0';
+
+      printf("Enter phone: ");
+      fgets(phone, sizeof(phone), stdin);
+      phone[strcspn(phone, "\n")] = '\0';
+
+      printf("Enter email: ");
+      fgets(email, sizeof(email), stdin);
+      email[strcspn(email, "\n")] = '\0';
+
+      addContact(name, phone, email);
       break;
     case 2:
       deleteContact();

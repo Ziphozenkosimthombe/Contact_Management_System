@@ -7,12 +7,23 @@ void loadContact() {
     printf("No saved contacts found.\n");
     return;
   }
+
   numContacts = 0;
-  while (fscanf(file, "%s %s %s", contacts[numContacts].name,
-                contacts[numContacts].phone,
-                contacts[numContacts].email) != EOF) {
-    numContacts++;
+  char line[256]; // Buffer to read each line
+  while (fgets(line, sizeof(line), file) != NULL) {
+    if (sscanf(line, "name: %49s phone: %19s email: %49s",
+               contacts[numContacts].name, contacts[numContacts].phone,
+               contacts[numContacts].email) == 3) {
+      numContacts++;
+      if (numContacts >= MAX_CONTACTS) {
+        printf("Max contacts loaded.\n");
+        break;
+      }
+    } else {
+      printf("Line format incorrect: %s", line);
+    }
   }
+
   fclose(file);
-  printf("Contacts loaded.\n");
+  printf("Contacts loaded: %d\n", numContacts);
 }

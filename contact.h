@@ -15,13 +15,12 @@ struct Contact {
 // Declare the variables as extern
 extern struct Contact contacts[MAX_CONTACTS];
 extern int numContacts;
-
-void addContact();
-void deleteContact();
+int addContact(const char *name, const char *phone, const char *email);
 void searchContact();
 void displayContact();
 void saveContact();
 void loadContact();
 void displayMenu();
-void deleteFromFile();
+void deleteContact();
+void test_save();
 #endif // CONTACT_H

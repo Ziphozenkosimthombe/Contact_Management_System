@@ -2,47 +2,42 @@
 #include <stdio.h>
 #include <string.h>
 
-void addContact() {
+int addContact(const char *name, const char *phone, const char *email) {
   if (numContacts < MAX_CONTACTS) {
-
-    printf("Enter the contact name: ");
-    fgets(contacts[numContacts].name, NAME_SIZE, stdin);
-
-    // Remove newline character if present
-    contacts[numContacts].name[strcspn(contacts[numContacts].name, "\n")] =
-        '\0';
-
-    if (contacts[numContacts].name[0] == '\0') {
+    if (name == NULL || name[0] == '\0') {
       printf("Empty name is not allowed. Contact not added.\n");
-      return;
+      return 0;
     }
 
-    printf("Enter the contact phone number: ");
-    fgets(contacts[numContacts].phone, PHONE_SIZE, stdin);
-
-    // Remove newline character if present
-    contacts[numContacts].phone[strcspn(contacts[numContacts].phone, "\n")] =
-        '\0';
-    if (contacts[numContacts].phone[0] == '\0') {
+    if (phone == NULL || phone[0] == '\0') {
       printf("Empty phone number is not allowed. Contact not added.\n");
-      return;
+      return 0;
     }
 
-    printf("Enter the contact email: ");
-    fgets(contacts[numContacts].email, EMAIL_SIZE, stdin);
-
-    // Remove newline character if present
-    contacts[numContacts].email[strcspn(contacts[numContacts].email, "\n")] =
-        '\0';
-    if (contacts[numContacts].email[0] == '\0') {
+    if (email == NULL || email[0] == '\0') {
       printf("Empty email is not allowed. Contact not added.\n");
-      return;
+      return 0;
     }
+
+    strncpy(contacts[numContacts].name, name, NAME_SIZE - 1);
+    contacts[numContacts].name[NAME_SIZE - 1] = '\0';
+    strncpy(contacts[numContacts].phone, phone, PHONE_SIZE - 1);
+    contacts[numContacts].phone[PHONE_SIZE - 1] = '\0';
+    strncpy(contacts[numContacts].email, email, EMAIL_SIZE - 1);
+    contacts[numContacts].email[EMAIL_SIZE - 1] = '\0';
 
     numContacts++;
     printf("Contact added successfully!\n");
+
+    // if you want to run the test case please uncomment the test_save(), and
+    // also comment out the saveContact()
+    //    test_save();
+    // when you run you test case please comment out the saveContact() and
+    // uncomment the test_save()
     saveContact();
+    return 1;
   } else {
     printf("Contact list is full. Cannot add more contacts.\n");
+    return 0;
   }
 }
